@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lightwave | Professional Event Technology</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        
+        :root {
+            --primary: #00f2ff;
+            --secondary: #7000ff;
+            --dark: #0a0a0c;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark);
+            color: white;
+            scroll-behavior: smooth;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-bg {
+            background: radial-gradient(circle at 50% 50%, rgba(112, 0, 255, 0.15) 0%, rgba(10, 10, 12, 1) 70%);
+        }
+
+        .card-blur {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .card-blur:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .glow-button {
+            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .glow-button:hover {
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+        }
+
+        .animate-spin-slow {
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 py-6 px-8 flex justify-between items-center bg-black/50 backdrop-blur-md">
+        <div class="text-2xl font-black tracking-tighter italic">
+            LIGHT<span class="text-[#00f2ff]">WAVE</span>
+        </div>
+        <div class="hidden lg:flex space-x-8 font-medium text-sm uppercase tracking-wider">
+            <a href="#home" class="nav-link">Home</a>
+            <a href="#technik" class="nav-link">Technik</a>
+            <a href="#dj" class="nav-link">DJ Service</a>
+            <a href="#about" class="nav-link">Über uns</a>
+            <a href="#contact" class="nav-link">Kontakt</a>
+        </div>
+        <div>
+            <a href="#contact" class="bg-[#00f2ff] text-black px-6 py-2 rounded-full font-bold glow-button text-sm uppercase transition transform active:scale-95">Anfrage</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-20 hero-bg relative overflow-hidden text-center">
+        <div class="container mx-auto px-6 z-10">
+            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">
+                LIGHT<span class="gradient-text italic">WAVE</span> <br>EVENTS
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10">
+                Professionelle Veranstaltungstechnik und DJ-Service für Events, die in Erinnerung bleiben.
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <a href="#technik" class="border border-white/20 hover:bg-white hover:text-black px-8 py-4 rounded-full font-bold transition">Unsere Technik</a>
+                <a href="#about" class="bg-[#7000ff] px-8 py-4 rounded-full font-bold transition hover:opacity-90">Wer wir sind</a>
+            </div>
+        </div>
+        <!-- Decorative light elements -->
+        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-[#00f2ff] rounded-full blur-[120px] opacity-20"></div>
+        <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#7000ff] rounded-full blur-[120px] opacity-20"></div>
+    </section>
+
+    <!-- Technik Section -->
+    <section id="technik" class="py-24 bg-[#0a0a0c]">
+        <div class="container mx-auto px-6">
+            <div class="mb-16 text-center">
+                <h2 class="text-4xl font-bold mb-4 italic uppercase tracking-widest">Technik</h2>
+                <div class="h-1 w-20 bg-[#00f2ff] mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="card-blur p-10 rounded-3xl border-l-4 border-l-[#00f2ff]">
+                    <i class="fas fa-bolt text-3xl text-[#00f2ff] mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Lichttechnik</h3>
+                    <p class="text-gray-400">Von intelligenten Moving Heads bis hin zu atmosphärischer Architekturbeleuchtung. Wir erschaffen Welten aus Licht.</p>
+                </div>
+                <div class="card-blur p-10 rounded-3xl border-l-4 border-l-[#7000ff]">
+                    <i class="fas fa-volume-high text-3xl text-[#7000ff] mb-6"></i>
+                    <h3 class="text-2xl font-bold mb-4">Tontechnik</h3>
+                    <p class="text-gray-400">Druckvolle Bässe und glasklare Höhen. Wir nutzen hochwertiges PA-Equipment für den besten Sound auf eurem Event.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DJ Section -->
+    <section id="dj" class="py-24 bg-zinc-900/20">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2">
+                <h2 class="text-4xl font-bold mb-6 italic">Professioneller <br><span class="text-[#00f2ff]">DJ Service</span></h2>
+                <p class="text-gray-400 mb-6 text-lg">
+                    Der richtige Beat zur richtigen Zeit. Wir begleiten euer Event musikalisch – egal ob entspanntes Get-together oder wilde Party-Nacht.
+                </p>
+                <ul class="space-y-3">
+                    <li class="flex items-center gap-3 text-gray-300"><i class="fas fa-check text-[#00f2ff]"></i> Individuelle Playlist-Absprache</li>
+                    <li class="flex items-center gap-3 text-gray-300"><i class="fas fa-check text-[#00f2ff]"></i> Modernstes Mixing-Equipment</li>
+                    <li class="flex items-center gap-3 text-gray-300"><i class="fas fa-check text-[#00f2ff]"></i> Genre-Vielfalt für alle Altersgruppen</li>
+                </ul>
+            </div>
+            <div class="md:w-1/2 grid grid-cols-2 gap-4">
+                <div class="bg-zinc-800 h-48 rounded-3xl flex items-center justify-center text-6xl opacity-40 shadow-inner">
+                    <i class="fas fa-compact-disc animate-spin-slow"></i>
+                </div>
+                <div class="bg-[#7000ff]/10 h-48 rounded-3xl flex items-center justify-center text-6xl border border-[#7000ff]/20">
+                    <i class="fas fa-headphones text-[#7000ff]"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-[#0a0a0c]">
+        <div class="container mx-auto px-6 text-center max-w-3xl">
+            <h2 class="text-4xl font-bold mb-8 italic">Über <span class="gradient-text">Lightwave</span></h2>
+            <div class="h-1 w-20 bg-[#7000ff] mx-auto mb-10"></div>
+            <p class="text-gray-300 text-xl leading-relaxed mb-6">
+                Lightwave wurde von zwei Freunden mit einer gemeinsamen Leidenschaft für Event-Technik gegründet. Wir kombinieren technisches Know-how mit kreativem Gespür.
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+                Unser Ziel ist es, jedes Event – egal ob klein oder groß – zu einem audiovisuellen Highlight zu machen. Zuverlässigkeit, saubere Verkabelung und höchste Qualität stehen bei uns an erster Stelle.
+            </p>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="py-24 container mx-auto px-6">
+        <div class="max-w-4xl mx-auto bg-zinc-900 rounded-3xl p-8 md:p-12 shadow-2xl border border-white/5 relative overflow-hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
+                <div>
+                    <h2 class="text-4xl font-bold mb-6 italic uppercase tracking-tighter">Jetzt <br><span class="text-[#00f2ff]">Anfragen</span></h2>
+                    <p class="text-gray-400 mb-8">Bereit für die nächste Welle? Wir freuen uns auf eure Nachricht und erstellen euch ein individuelles Konzept.</p>
+                    <div class="space-y-6">
+                        <div class="flex items-center gap-4 group cursor-pointer">
+                            <div class="w-12 h-12 rounded-full bg-[#00f2ff]/10 flex items-center justify-center group-hover:bg-[#00f2ff]/30 transition duration-300">
+                                <i class="fas fa-envelope text-[#00f2ff] text-xl"></i>
+                            </div>
+                            <span class="font-medium text-lg">mima@doc-network.de</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-full bg-[#00f2ff]/10 flex items-center justify-center">
+                                <i class="fas fa-phone text-[#00f2ff] text-xl"></i>
+                            </div>
+                            <span class="font-medium text-lg">Kontakt auf Anfrage</span>
+                        </div>
+                    </div>
+                </div>
+                <form onsubmit="event.preventDefault(); document.getElementById('success-msg').classList.remove('hidden');" class="space-y-4">
+                    <input type="text" placeholder="Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:border-[#00f2ff] outline-none transition" required>
+                    <input type="email" placeholder="E-Mail" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:border-[#00f2ff] outline-none transition" required>
+                    <textarea placeholder="Was plant ihr? (Datum, Ort, Personenanzahl)" rows="4" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:border-[#00f2ff] outline-none transition" required></textarea>
+                    <button class="w-full bg-[#00f2ff] text-black font-black py-4 rounded-xl hover:bg-cyan-400 transition uppercase tracking-widest glow-button active:scale-95">Absenden</button>
+                    <div id="success-msg" class="hidden text-green-400 text-center mt-4 text-sm font-medium animate-pulse">
+                        <i class="fas fa-check-circle mr-2"></i> Nachricht gesendet! Wir antworten an mima@doc-network.de
+                    </div>
+                </form>
+            </div>
+            <!-- Decorative circle -->
+            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-[#7000ff]/10 rounded-full blur-3xl"></div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm">
+        <div class="mb-6 italic font-black text-white tracking-tighter text-2xl">LIGHTWAVE</div>
+        <p>&copy; 2024 Lightwave Eventtechnik. Professional Technology for Events.</p>
+        <div class="mt-4 flex justify-center gap-6">
+            <a href="#" class="hover:text-[#00f2ff] transition text-lg"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-[#00f2ff] transition text-lg"><i class="fab fa-facebook"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Header Background on Scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 50) {
+                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+            } else {
+                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            }
+        });
+    </script>
+</body>
+</html>

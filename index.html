@@ -3,256 +3,437 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lightwave | Professional Event Technology</title>
+    <title>LIGHTWAVE | Professional Sound & Light</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Inter:wght@300;400;600;800&display=swap');
         
         :root {
-            --primary: #00f2ff;
-            --secondary: #7000ff;
-            --dark: #0a0a0c;
+            --primary: #00b4cc; /* Angepasst für Lightmode */
+            --secondary: #6200ea;
+            --bg-light: #ffffff;
+            --text-main: #1a1a1a;
+            --text-muted: #555555;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--dark);
-            color: white;
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
+        h1, h2, h3, h4, .nav-brand, .company-name {
+            font-family: 'Syncopate', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
         .gradient-text {
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .hero-bg {
-            background: radial-gradient(circle at 50% 50%, rgba(112, 0, 255, 0.15) 0%, rgba(10, 10, 12, 1) 70%);
+        .glass-card {
+            background: rgba(0, 0, 0, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
         }
 
-        .card-blur {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .card-blur:hover {
+        .glass-card:hover {
+            transform: translateY(-10px);
             border-color: var(--primary);
-            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
         }
 
-        .nav-link {
+        .wave-bg {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .wave-path {
+            fill: none;
+            stroke: url(#waveGrad);
+            stroke-width: 1.5;
+            opacity: 0.15;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: dash 25s linear infinite alternate;
+        }
+
+        @keyframes dash { to { stroke-dashoffset: 0; } }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-tag {
+            font-size: 0.65rem;
+            letter-spacing: 0.5em;
+            color: var(--secondary);
+            font-weight: 800;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+
+        #progress-bar {
+            position: fixed;
+            top: 0; left: 0; height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            z-index: 1001;
+            width: 0%;
+        }
+
+        .gallery-item {
+            height: 450px;
+            background: #f8f8f8;
+            border-radius: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
             position: relative;
-            transition: color 0.3s ease;
+            border: 1px solid #eee;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -4px;
-            left: 0;
-            background: var(--primary);
-            transition: width 0.3s ease;
+        .gallery-item span {
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: #999;
         }
 
-        .nav-link:hover::after {
-            width: 100%;
+        .long-section {
+            padding: 12rem 0;
         }
 
-        .glow-button {
-            box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
-            transition: box-shadow 0.3s ease;
+        input, textarea {
+            background: #fcfcfc !important;
+            color: #1a1a1a !important;
+            border: 1px solid #eee !important;
         }
 
-        .glow-button:hover {
-            box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+        input:focus, textarea:focus {
+            border-color: var(--primary) !important;
+            background: #fff !important;
         }
 
-        .animate-spin-slow {
-            animation: spin 8s linear infinite;
-        }
-
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+        .mesh-gradient {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 180, 204, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(98, 0, 234, 0.05) 0%, transparent 40%);
+            z-index: -2;
         }
     </style>
 </head>
 <body>
 
+    <div id="progress-bar"></div>
+    <div class="mesh-gradient"></div>
+
+    <div class="wave-bg">
+        <svg width="100%" height="100%" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <linearGradient id="waveGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" style="stop-color:var(--primary)" />
+                    <stop offset="100%" style="stop-color:var(--secondary)" />
+                </linearGradient>
+            </defs>
+            <path class="wave-path" d="M-100,300 Q300,50 600,300 T1200,300 T1800,300" />
+            <path class="wave-path" style="animation-delay: -7s; opacity: 0.08;" d="M-100,500 Q400,200 700,500 T1300,500 T1900,500" />
+        </svg>
+    </div>
+
     <!-- Navigation -->
-    <nav class="fixed w-full z-50 py-6 px-8 flex justify-between items-center bg-black/50 backdrop-blur-md">
-        <div class="text-2xl font-black tracking-tighter italic">
-            LIGHT<span class="text-[#00f2ff]">WAVE</span>
+    <nav class="fixed w-full z-[100] py-6 px-8 md:px-16 flex justify-between items-center bg-white/80 backdrop-blur-xl border-b border-black/5">
+        <div class="nav-brand text-xl font-bold tracking-tighter text-black">
+            LIGHT<span class="text-[#00b4cc]">WAVE</span>
         </div>
-        <div class="hidden lg:flex space-x-8 font-medium text-sm uppercase tracking-wider">
-            <a href="#home" class="nav-link">Home</a>
-            <a href="#technik" class="nav-link">Technik</a>
-            <a href="#dj" class="nav-link">DJ Service</a>
-            <a href="#about" class="nav-link">Über uns</a>
-            <a href="#contact" class="nav-link">Kontakt</a>
-        </div>
-        <div>
-            <a href="#contact" class="bg-[#00f2ff] text-black px-6 py-2 rounded-full font-bold glow-button text-sm uppercase transition transform active:scale-95">Anfrage</a>
+        <div class="hidden lg:flex space-x-12">
+            <a href="#home" class="text-[10px] font-bold uppercase tracking-widest text-black/70 hover:text-[#00b4cc] transition">Home</a>
+            <a href="#about" class="text-[10px] font-bold uppercase tracking-widest text-black/70 hover:text-[#00b4cc] transition">Duo</a>
+            <a href="#tech" class="text-[10px] font-bold uppercase tracking-widest text-black/70 hover:text-[#00b4cc] transition">Technik</a>
+            <a href="#booking" class="text-[10px] font-bold uppercase tracking-widest text-black/70 hover:text-[#00b4cc] transition">Angebote</a>
+            <a href="#contact" class="text-[10px] font-bold uppercase tracking-widest text-black/70 hover:text-[#00b4cc] transition">Kontakt</a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="min-h-screen flex items-center justify-center pt-20 hero-bg relative overflow-hidden text-center">
-        <div class="container mx-auto px-6 z-10">
-            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">
-                LIGHT<span class="gradient-text italic">WAVE</span> <br>EVENTS
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-400 max-w-2xl mx-auto mb-10">
-                Professionelle Veranstaltungstechnik und DJ-Service für Events, die in Erinnerung bleiben.
-            </p>
-            <div class="flex flex-col md:flex-row justify-center gap-4">
-                <a href="#technik" class="border border-white/20 hover:bg-white hover:text-black px-8 py-4 rounded-full font-bold transition">Unsere Technik</a>
-                <a href="#about" class="bg-[#7000ff] px-8 py-4 rounded-full font-bold transition hover:opacity-90">Wer wir sind</a>
-            </div>
-        </div>
-        <!-- Decorative light elements -->
-        <div class="absolute -bottom-20 -left-20 w-64 h-64 bg-[#00f2ff] rounded-full blur-[120px] opacity-20"></div>
-        <div class="absolute -top-20 -right-20 w-64 h-64 bg-[#7000ff] rounded-full blur-[120px] opacity-20"></div>
-    </section>
-
-    <!-- Technik Section -->
-    <section id="technik" class="py-24 bg-[#0a0a0c]">
-        <div class="container mx-auto px-6">
-            <div class="mb-16 text-center">
-                <h2 class="text-4xl font-bold mb-4 italic uppercase tracking-widest">Technik</h2>
-                <div class="h-1 w-20 bg-[#00f2ff] mx-auto"></div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="card-blur p-10 rounded-3xl border-l-4 border-l-[#00f2ff]">
-                    <i class="fas fa-bolt text-3xl text-[#00f2ff] mb-6"></i>
-                    <h3 class="text-2xl font-bold mb-4">Lichttechnik</h3>
-                    <p class="text-gray-400">Von intelligenten Moving Heads bis hin zu atmosphärischer Architekturbeleuchtung. Wir erschaffen Welten aus Licht.</p>
-                </div>
-                <div class="card-blur p-10 rounded-3xl border-l-4 border-l-[#7000ff]">
-                    <i class="fas fa-volume-high text-3xl text-[#7000ff] mb-6"></i>
-                    <h3 class="text-2xl font-bold mb-4">Tontechnik</h3>
-                    <p class="text-gray-400">Druckvolle Bässe und glasklare Höhen. Wir nutzen hochwertiges PA-Equipment für den besten Sound auf eurem Event.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DJ Section -->
-    <section id="dj" class="py-24 bg-zinc-900/20">
-        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center gap-12">
-            <div class="md:w-1/2">
-                <h2 class="text-4xl font-bold mb-6 italic">Professioneller <br><span class="text-[#00f2ff]">DJ Service</span></h2>
-                <p class="text-gray-400 mb-6 text-lg">
-                    Der richtige Beat zur richtigen Zeit. Wir begleiten euer Event musikalisch – egal ob entspanntes Get-together oder wilde Party-Nacht.
+    <!-- Firmen-Header -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 px-6">
+        <div class="text-center z-10">
+            <div class="reveal active">
+                <div class="company-name text-[#6200ea] text-sm md:text-xl font-bold tracking-[0.5em] mb-4">LIGHTWAVE EVENTS</div>
+                <h1 class="text-6xl md:text-[11rem] font-extrabold mb-8 leading-[0.85] tracking-tighter text-black">
+                    AUDITIVE <br><span class="gradient-text italic">PRÄZISION.</span>
+                </h1>
+                <p class="text-gray-500 text-lg md:text-xl mb-14 max-w-2xl mx-auto font-light leading-relaxed">
+                    Professionelle Eventbegleitung durch Experten für Sound-Design und Lichttechnik. Kein Standard, sondern maßgeschneiderte Performance.
                 </p>
-                <ul class="space-y-3">
-                    <li class="flex items-center gap-3 text-gray-300"><i class="fas fa-check text-[#00f2ff]"></i> Individuelle Playlist-Absprache</li>
-                    <li class="flex items-center gap-3 text-gray-300"><i class="fas fa-check text-[#00f2ff]"></i> Modernstes Mixing-Equipment</li>
-                    <li class="flex items-center gap-3 text-gray-300"><i class="fas fa-check text-[#00f2ff]"></i> Genre-Vielfalt für alle Altersgruppen</li>
-                </ul>
-            </div>
-            <div class="md:w-1/2 grid grid-cols-2 gap-4">
-                <div class="bg-zinc-800 h-48 rounded-3xl flex items-center justify-center text-6xl opacity-40 shadow-inner">
-                    <i class="fas fa-compact-disc animate-spin-slow"></i>
-                </div>
-                <div class="bg-[#7000ff]/10 h-48 rounded-3xl flex items-center justify-center text-6xl border border-[#7000ff]/20">
-                    <i class="fas fa-headphones text-[#7000ff]"></i>
+                <div class="flex flex-col sm:flex-row justify-center gap-8">
+                    <a href="#contact" class="bg-black text-white px-16 py-7 rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-[#00b4cc] transition-all transform hover:scale-105">Anfrage senden</a>
+                    <a href="#about" class="border border-black/10 px-16 py-7 rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-black/5 transition text-black">Unser Duo</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-24 bg-[#0a0a0c]">
-        <div class="container mx-auto px-6 text-center max-w-3xl">
-            <h2 class="text-4xl font-bold mb-8 italic">Über <span class="gradient-text">Lightwave</span></h2>
-            <div class="h-1 w-20 bg-[#7000ff] mx-auto mb-10"></div>
-            <p class="text-gray-300 text-xl leading-relaxed mb-6">
-                Lightwave wurde von zwei Freunden mit einer gemeinsamen Leidenschaft für Event-Technik gegründet. Wir kombinieren technisches Know-how mit kreativem Gespür.
-            </p>
-            <p class="text-gray-400 leading-relaxed">
-                Unser Ziel ist es, jedes Event – egal ob klein oder groß – zu einem audiovisuellen Highlight zu machen. Zuverlässigkeit, saubere Verkabelung und höchste Qualität stehen bei uns an erster Stelle.
-            </p>
-        </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="py-24 container mx-auto px-6">
-        <div class="max-w-4xl mx-auto bg-zinc-900 rounded-3xl p-8 md:p-12 shadow-2xl border border-white/5 relative overflow-hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 relative z-10">
-                <div>
-                    <h2 class="text-4xl font-bold mb-6 italic uppercase tracking-tighter">Jetzt <br><span class="text-[#00f2ff]">Anfragen</span></h2>
-                    <p class="text-gray-400 mb-8">Bereit für die nächste Welle? Wir freuen uns auf eure Nachricht und erstellen euch ein individuelles Konzept.</p>
-                    <div class="space-y-6">
-                        <div class="flex items-center gap-4 group cursor-pointer">
-                            <div class="w-12 h-12 rounded-full bg-[#00f2ff]/10 flex items-center justify-center group-hover:bg-[#00f2ff]/30 transition duration-300">
-                                <i class="fas fa-envelope text-[#00f2ff] text-xl"></i>
+    <!-- Expertise Section -->
+    <section id="about" class="long-section px-6">
+        <div class="container mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-32 items-center">
+                <div class="reveal">
+                    <span class="section-tag">DIE PHILOSOPHIE</span>
+                    <h2 class="text-4xl md:text-6xl font-bold italic mb-10 leading-tight uppercase text-black">Getrennte Rollen. <br><span class="text-[#00b4cc]">Perfektes Ergebnis.</span></h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-12">
+                        Ein Event ist nur so gut wie seine Einzelteile. Wir verzichten bewusst auf Personal-Sharing. Jeder konzentriert sich zu 100% auf sein Handwerk.
+                    </p>
+                    <div class="space-y-10">
+                        <div class="flex items-start gap-6">
+                            <div class="w-14 h-14 rounded-2xl bg-[#00b4cc]/10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-volume-up text-[#00b4cc]"></i>
                             </div>
-                            <span class="font-medium text-lg">mima@doc-network.de</span>
+                            <div>
+                                <h4 class="font-bold uppercase tracking-tighter mb-2 text-black">Der Sound-Spezialist</h4>
+                                <p class="text-gray-500 text-sm">Verantwortlich für das audiophile Erlebnis, nahtlose Übergänge und die musikalische Dramaturgie des Abends.</p>
+                            </div>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-full bg-[#00f2ff]/10 flex items-center justify-center">
-                                <i class="fas fa-phone text-[#00f2ff] text-xl"></i>
+                        <div class="flex items-start gap-6">
+                            <div class="w-14 h-14 rounded-2xl bg-[#6200ea]/10 flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-lightbulb text-[#6200ea]"></i>
                             </div>
-                            <span class="font-medium text-lg">Kontakt auf Anfrage</span>
+                            <div>
+                                <h4 class="font-bold uppercase tracking-tighter mb-2 text-black">Der Lichttechniker</h4>
+                                <p class="text-gray-500 text-sm">Verantwortlich für die visuelle Atmosphäre, Live-Programmierung der Show und Akzentuierung wichtiger Momente.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <form onsubmit="event.preventDefault(); document.getElementById('success-msg').classList.remove('hidden');" class="space-y-4">
-                    <input type="text" placeholder="Name" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:border-[#00f2ff] outline-none transition" required>
-                    <input type="email" placeholder="E-Mail" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:border-[#00f2ff] outline-none transition" required>
-                    <textarea placeholder="Was plant ihr? (Datum, Ort, Personenanzahl)" rows="4" class="w-full bg-white/5 border border-white/10 p-4 rounded-xl focus:border-[#00f2ff] outline-none transition" required></textarea>
-                    <button class="w-full bg-[#00f2ff] text-black font-black py-4 rounded-xl hover:bg-cyan-400 transition uppercase tracking-widest glow-button active:scale-95">Absenden</button>
-                    <div id="success-msg" class="hidden text-green-400 text-center mt-4 text-sm font-medium animate-pulse">
-                        <i class="fas fa-check-circle mr-2"></i> Nachricht gesendet! Wir antworten an mima@doc-network.de
-                    </div>
-                </form>
+                <div class="grid grid-cols-2 gap-4 reveal">
+                    <div class="glass-card h-80 rounded-[3rem] mt-12 bg-gray-50"></div>
+                    <div class="glass-card h-80 rounded-[3rem] bg-gray-50"></div>
+                </div>
             </div>
-            <!-- Decorative circle -->
-            <div class="absolute -bottom-10 -right-10 w-40 h-40 bg-[#7000ff]/10 rounded-full blur-3xl"></div>
+        </div>
+    </section>
+
+    <!-- Galerie Section -->
+    <section class="long-section px-6 bg-gray-50/50">
+        <div class="container mx-auto">
+            <div class="text-center reveal mb-20">
+                <span class="section-tag">IMPRESSIONEN</span>
+                <h2 class="text-4xl font-bold italic uppercase text-black">Visuelle Kraft</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="gallery-item reveal"><span>[EVENT VISUAL 01]</span></div>
+                <div class="gallery-item reveal" style="transition-delay: 0.2s;"><span>[EVENT VISUAL 02]</span></div>
+                <div class="gallery-item reveal" style="transition-delay: 0.4s;"><span>[EVENT VISUAL 03]</span></div>
+                <div class="gallery-item reveal md:col-span-2"><span>[PANORAMA SHOWCASE]</span></div>
+                <div class="gallery-item reveal"><span>[TECH DETAIL]</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technik Deep Dive -->
+    <section id="tech" class="long-section px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
+                <div class="reveal">
+                    <span class="section-tag">EQUIPMENT</span>
+                    <h2 class="text-4xl font-bold italic uppercase mb-8 leading-none text-black">High-End <br><span class="text-[#00b4cc]">Standard.</span></h2>
+                    <p class="text-gray-500 mb-12">Wir nutzen ausschließlich professionelle Hardware namhafter Hersteller, um Ausfallsicherheit und erstklassige Qualität zu garantieren.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 reveal">
+                    <div class="p-8 border border-black/5 rounded-3xl hover:bg-black/[0.02] transition bg-white">
+                        <i class="fas fa-microchip text-[#00b4cc] mb-6 text-2xl"></i>
+                        <h5 class="font-bold uppercase text-xs mb-3 tracking-widest text-black">DMX Control</h5>
+                        <p class="text-gray-500 text-xs leading-relaxed">Keine Automatik-Programme. Jedes Lichtsignal wird manuell auf den Takt abgestimmt.</p>
+                    </div>
+                    <div class="p-8 border border-black/5 rounded-3xl hover:bg-black/[0.02] transition bg-white">
+                        <i class="fas fa-broadcast-tower text-[#6200ea] mb-6 text-2xl"></i>
+                        <h5 class="font-bold uppercase text-xs mb-3 tracking-widest text-black">Crystal Audio</h5>
+                        <p class="text-gray-500 text-xs leading-relaxed">Line-Array Technologie für kristallklaren Sound bei jeder Lautstärke.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ablauf Roadmap -->
+    <section class="long-section px-6 bg-gray-50/30">
+        <div class="container mx-auto max-w-4xl">
+            <div class="text-center reveal mb-24">
+                <span class="section-tag">WORKFLOW</span>
+                <h2 class="text-4xl font-bold italic uppercase text-black">Der Weg zum Event</h2>
+            </div>
+            <div class="space-y-24 relative">
+                <div class="absolute left-1/2 top-0 bottom-0 w-px bg-black/5 -translate-x-1/2 hidden md:block"></div>
+                
+                <div class="relative flex flex-col md:flex-row items-center reveal">
+                    <div class="md:w-1/2 md:pr-16 text-right mb-8 md:mb-0">
+                        <h4 class="font-bold uppercase mb-2 tracking-tighter text-black">Konzeption</h4>
+                        <p class="text-gray-500 text-sm">Abstimmung der musikalischen Ausrichtung und des Licht-Setups.</p>
+                    </div>
+                    <div class="w-12 h-12 bg-white border border-[#00b4cc] rounded-full flex items-center justify-center z-10 font-bold text-[10px] text-black">01</div>
+                    <div class="md:w-1/2 md:pl-16"></div>
+                </div>
+
+                <div class="relative flex flex-col md:flex-row items-center reveal">
+                    <div class="md:w-1/2"></div>
+                    <div class="w-12 h-12 bg-white border border-[#6200ea] rounded-full flex items-center justify-center z-10 font-bold text-[10px] text-black">02</div>
+                    <div class="md:w-1/2 md:pl-16 mt-8 md:mt-0">
+                        <h4 class="font-bold uppercase mb-2 tracking-tighter text-black">Installation</h4>
+                        <p class="text-gray-500 text-sm">Fachgerechter Aufbau und Soundcheck vor Ort.</p>
+                    </div>
+                </div>
+
+                <div class="relative flex flex-col md:flex-row items-center reveal">
+                    <div class="md:w-1/2 md:pr-16 text-right mb-8 md:mb-0">
+                        <h4 class="font-bold uppercase mb-2 tracking-tighter text-black">Showtime</h4>
+                        <p class="text-gray-500 text-sm">Live-Performance durch Sound-Expert und Licht-Operator.</p>
+                    </div>
+                    <div class="w-12 h-12 bg-white border border-[#00b4cc] rounded-full flex items-center justify-center z-10 font-bold text-[10px] text-black">03</div>
+                    <div class="md:w-1/2 md:pl-16"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pakete Section -->
+    <section id="booking" class="long-section px-6">
+        <div class="container mx-auto">
+            <div class="text-center reveal mb-20">
+                <span class="section-tag">BUCHUNGS-OPTIONEN</span>
+                <h2 class="text-4xl md:text-5xl font-bold italic uppercase text-black">Unsere <span class="text-[#00b4cc]">Pakete</span></h2>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
+                <div class="glass-card p-12 rounded-[4rem] flex flex-col reveal bg-white">
+                    <h3 class="text-xl font-bold mb-4 tracking-tighter uppercase text-black">Club Lite</h3>
+                    <p class="text-gray-500 text-sm mb-12">Perfekt für kleine Lounges oder Private Dinners.</p>
+                    <ul class="space-y-5 text-xs text-gray-500 mb-12 flex-grow">
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> 2-Mann Experten Team</li>
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> Kompaktes Audiosystem</li>
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> Ambient Lighting</li>
+                    </ul>
+                    <a href="#contact" class="w-full py-5 rounded-full border border-black/10 text-center font-bold uppercase text-[9px] tracking-widest text-black hover:bg-black hover:text-white transition">Anfragen</a>
+                </div>
+                
+                <div class="glass-card p-12 rounded-[4rem] border-[#6200ea]/10 bg-[#6200ea]/5 flex flex-col reveal relative scale-105 z-10">
+                    <h3 class="text-xl font-bold mb-4 tracking-tighter uppercase text-black">Event Prime</h3>
+                    <p class="text-gray-600 text-sm mb-12">Die volle Performance für Hochzeiten & Gala-Abende.</p>
+                    <ul class="space-y-5 text-xs text-black/70 mb-12 flex-grow">
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> 2-Mann Experten Team</li>
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> Premium Sound mit Sub</li>
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> Dynamische Lichtshow</li>
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> Moderations-Technik</li>
+                    </ul>
+                    <a href="#contact" class="w-full py-5 rounded-full bg-black text-white text-center font-bold uppercase text-[9px] tracking-widest hover:bg-[#00b4cc] transition">Anfragen</a>
+                </div>
+
+                <div class="glass-card p-12 rounded-[4rem] flex flex-col reveal bg-white">
+                    <h3 class="text-xl font-bold mb-4 tracking-tighter uppercase text-black">Stage Pro</h3>
+                    <p class="text-gray-500 text-sm mb-12">Wenn es richtig groß werden muss. Open Air & Festival.</p>
+                    <ul class="space-y-5 text-xs text-gray-500 mb-12 flex-grow">
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> 2-Mann Experten Team</li>
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> Konzert-Beschallung</li>
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> Moving Heads & Hazer</li>
+                        <li><i class="fas fa-check text-[#00b4cc] mr-3"></i> Open End Garantie</li>
+                    </ul>
+                    <a href="#contact" class="w-full py-5 rounded-full border border-black/10 text-center font-bold uppercase text-[9px] tracking-widest text-black hover:bg-black hover:text-white transition">Anfragen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="long-section px-6">
+        <div class="container mx-auto text-center">
+            <div class="reveal max-w-3xl mx-auto">
+                <i class="fas fa-quote-left text-5xl text-[#00b4cc] mb-10 opacity-10"></i>
+                <p class="text-2xl md:text-3xl font-light italic text-gray-700 leading-relaxed mb-10">
+                    "Das Team von LIGHTWAVE hat unser Event auf ein ganz neues Level gehoben. Man merkt sofort, dass hier Profis am Werk sind, die ihr Handwerk verstehen."
+                </p>
+                <div class="font-bold uppercase tracking-[0.3em] text-[10px] text-[#6200ea]">Münchner Eventagentur</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="long-section px-6">
+        <div class="container mx-auto max-w-6xl">
+            <div class="glass-card rounded-[5rem] p-12 md:p-32 overflow-hidden relative bg-white border-black/5">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 relative z-10">
+                    <div class="reveal">
+                        <h2 class="text-5xl md:text-8xl font-bold italic mb-10 uppercase tracking-tighter text-black">Start <br><span class="text-[#00b4cc]">Now.</span></h2>
+                        <p class="text-gray-500 text-lg mb-12 leading-relaxed">Sichert euch euer Datum. Wir erstellen ein individuelles Konzept für eure Location.</p>
+                        <div class="text-xl font-bold tracking-tighter uppercase text-black">LIGHTWAVE EVENTS</div>
+                        <div class="text-sm text-gray-400 mt-2">München | Berlin | Hamburg</div>
+                    </div>
+                    <form class="space-y-6 reveal">
+                        <input type="text" placeholder="Vor- & Nachname" class="w-full p-6 rounded-3xl outline-none transition text-sm">
+                        <input type="email" placeholder="E-Mail Adresse" class="w-full p-6 rounded-3xl outline-none transition text-sm">
+                        <textarea placeholder="Was plant ihr?" rows="6" class="w-full p-6 rounded-3xl outline-none transition text-sm"></textarea>
+                        <button class="w-full bg-black text-white py-7 rounded-full font-bold uppercase text-[10px] tracking-widest hover:bg-[#00b4cc] transition transform active:scale-95">Termin reservieren</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-12 border-t border-white/5 text-center text-gray-500 text-sm">
-        <div class="mb-6 italic font-black text-white tracking-tighter text-2xl">LIGHTWAVE</div>
-        <p>&copy; 2024 Lightwave Eventtechnik. Professional Technology for Events.</p>
-        <div class="mt-4 flex justify-center gap-6">
-            <a href="#" class="hover:text-[#00f2ff] transition text-lg"><i class="fab fa-instagram"></i></a>
-            <a href="#" class="hover:text-[#00f2ff] transition text-lg"><i class="fab fa-facebook"></i></a>
+    <footer class="py-24 px-8 border-t border-black/5 bg-gray-50">
+        <div class="container mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-12">
+                <div class="nav-brand text-2xl font-bold text-black">
+                    LIGHT<span class="text-[#00b4cc]">WAVE</span>
+                </div>
+                <div class="flex space-x-12 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                    <a href="#" class="hover:text-black transition">Instagram</a>
+                    <a href="#" class="hover:text-black transition">Impressum</a>
+                    <a href="#" class="hover:text-black transition">DSGVO</a>
+                </div>
+                <p class="text-[9px] text-gray-400 tracking-[0.5em]">&copy; 2024 LIGHTWAVE EVENTS GROUP</p>
+            </div>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth'
-                    });
+        window.onscroll = function() {
+            let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let scrolled = (winScroll / height) * 100;
+            document.getElementById("progress-bar").style.width = scrolled + "%";
+            
+            let reveals = document.querySelectorAll(".reveal");
+            reveals.forEach(el => {
+                let windowHeight = window.innerHeight;
+                let elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) {
+                    el.classList.add("active");
                 }
             });
-        });
+        };
 
-        // Header Background on Scroll
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
-            } else {
-                nav.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-            }
-        });
+        window.onload = function() {
+            window.dispatchEvent(new Event('scroll'));
+        };
     </script>
 </body>
 </html>
